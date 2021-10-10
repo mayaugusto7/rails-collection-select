@@ -1,0 +1,34 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :author_id %>
+    <%#= form.text_field :author_id %>
+    <%#= collection_select(:post, :author_id, Author.all, :id, :name_with_initial, { prompt: true }, { multiple: true }) %>
+    <%= form.select(:author_id, Author.all.collect { |a| [a.first_name, a.id] }, { prompt: true }, { size: 5}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
